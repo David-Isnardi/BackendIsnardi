@@ -4,9 +4,9 @@ class ProductManager {
 };
 
 addProduct(title, description, price, thumbnail, code, stock){
- if (this.ValidarCampos(title, description, price, thumbnail, code, stock) && this.CodigoDuplicado(code)){
-  const nuevoProducto = {
-   id: this.GeneradorId(),
+ if (this.ValidateField(title, description, price, thumbnail, code, stock) && this.DuplicateCode(code)){
+  const newProduct = {
+   id: this.IdGenerator(),
    title: title,
    description: description,
    price: price,
@@ -15,7 +15,7 @@ addProduct(title, description, price, thumbnail, code, stock){
    stock: stock
    };
 
-  this.products.push(nuevoProducto)
+  this.products.push(newProduct)
   console.log(this.products)
  };
 };
@@ -24,11 +24,15 @@ getProducts() {
  return this.products
 };
 
-getProductsById(id){
- return this.products.find((product) => product.id === id);
+getProductsById(Productid){
+ const result = this.products.find((product) => product.id === Productid);
+ if(!result) {
+  return console.log("Not found")
+ }
+ return result
 };
 
-GeneradorId() {
+IdGenerator() {
   let id = 0;
    if (this.products.length === 0) {
     id = 1; 
@@ -36,11 +40,11 @@ GeneradorId() {
   } else {
     id = this.products[this.products.length - 1].id + 1;
   };
-
+  
 return id;
 };
 
-CodigoDuplicado(code){
+DuplicateCode(code){
   if (this.products.find((product) => product.code === code) !== undefined) {
   console.error("Este producto ya existe")
   return false;
@@ -50,7 +54,8 @@ CodigoDuplicado(code){
 };
 };
 
-ValidarCampos(title, description, price, thumbnail, code, stock) {
+
+ValidateField(title, description, price, thumbnail, code, stock) {
 if (!title || !description || !price || !thumbnail || !code || !stock) {
   console.error("Por favor, completa los campos");
   return false;
@@ -59,6 +64,7 @@ if (!title || !description || !price || !thumbnail || !code || !stock) {
   return true;
 };
 };
+
 
 };
 
@@ -70,6 +76,12 @@ newProductManager.addProduct("Queso", "Calcar", 100, "SinImagen", "124", 5);
 newProductManager.addProduct("Queso", "Calcar", 100, "SinImagen", "124", 5);
 //Campo sin completar
 newProductManager.addProduct("Pan", 300, "123", 10);
+
+console.log(newProductManager.getProductsById(1)) 
+
+
+
+
 
 
 
