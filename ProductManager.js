@@ -1,19 +1,26 @@
 import {promises as fs, readFile} from "fs"
 
 class ProductManager{
-    constructor(){
-        this.patch = "./productos.txt"
+    constructor(patch){
+        this.patch = patch
         this.products = []
     }
 
-    static id = 0
+
+    idGenerator() {
+        let id = 0;
+        if (this.products.length === 0) {
+            id = 1;
+        } else {
+            id = this.products[this.products.length - 1].id + 1;
+        };
+        return id;
+    };
     
     addProduct = async (title, description, price, thumbnail, code, stock) => {
 
-        ProductManager.id++
-
         let newProduct = {
-            id: ProductManager.id,
+            id: this.idGenerator(),
             title,
             description,
             price,
@@ -37,7 +44,7 @@ class ProductManager{
 
     getProducts = async () => {
         let respuesta2 = await this.readProducts()
-        return console.log(respuesta2)
+       return console.log(respuesta2)
     }
 
     getProductsById = async (id) => {
@@ -46,7 +53,7 @@ class ProductManager{
         if (!respuesta3.find(product => product.id === id)){
             console.log("Not found")
         } else {
-        console.log(respuesta3.find(product => product.id === id))
+       return console.log((respuesta3.find(product => product.id === id)))
         }
     }
 
@@ -59,24 +66,50 @@ class ProductManager{
 
     updateProducts = async ({id, ...producto}) => {
 
-        await this.deleteProductsById(id);
-
         let productOld = await this.readProducts()
 
         let productsModified = [{id, ...producto}, ...productOld]
 
         await fs.writeFile(this.patch, JSON.stringify(productsModified))
 
+        console.log("Producto actualizado")
+
     }
 }
 
-const productos = new ProductManager
+const productos = new ProductManager("./productos.txt");
 
+const product1 = {
+    title: "Pan",
+    description: "Bimbo",
+    price: 100,
+    thumbnail: "sinimagen",
+    code: "abc123",
+    stock: 10,
+};
+
+const product2 = {
+    title: "Leche",
+    description: "Conaprole",
+    price: 200,
+    thumbnail: "sinimagen",
+    code: "abc456",
+    stock: 15,
+};
+
+const product3 = {
+    title: "Queso",
+    description: "Dambo",
+    price: 400,
+    thumbnail: "sinimagen",
+    code: "abc789",
+    stock: 5,
+};
 
 //PRODUCTOS
-productos.addProduct("Pan" , "Bimbo", 1000 , "Sinimagen", "abc123", 10)
-productos.addProduct("Leche" , "Conaprole", 500, "Sinimagen", "abc456", 5)
-productos.addProduct("Queso" , "Dambo", 1000, "Sinimagen", "abc789", 15)
+productos.addProduct(product1)
+productos.addProduct(product2)
+productos.addProduct(product3)
 //-------------------------------------------------------------------------
 
 //VER TODOS LOS PRODUCTOS
@@ -84,7 +117,7 @@ productos.addProduct("Queso" , "Dambo", 1000, "Sinimagen", "abc789", 15)
 //-----------------------
 
 //TRAER PRODUCTO POR SU ID
-//productos.getProductsById(3)
+//productos.getProductsById(1)
 //------------------------
 
 //ELIMINAR PRODUCTO POR SU ID
@@ -94,13 +127,12 @@ productos.addProduct("Queso" , "Dambo", 1000, "Sinimagen", "abc789", 15)
 
 //ACTUALIZAR PRODUCTO
 /*productos.updateProducts({
-  id: 1,
-  title: 'Pan',
-  description: 'Bimbo',
-  price: 2,
-  thumbnail: 'Sinimagen',
-  code: 'abc123',
-  stock: 10
+    title: "Pan",
+    description: "Bimbo",
+    price: 100,
+    thumbnail: "sinimagen",
+    code: "abc123",
+    stock: 10,
 }
 )*/
 //-------------------------------------
