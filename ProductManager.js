@@ -79,41 +79,15 @@ class ProductManager{
 
 const productos = new ProductManager("./productos.txt");
 
-const product1 = {
-    title: "Pan",
-    description: "Bimbo",
-    price: 100,
-    thumbnail: "sinimagen",
-    code: "abc123",
-    stock: 10,
-};
 
-const product2 = {
-    title: "Leche",
-    description: "Conaprole",
-    price: 200,
-    thumbnail: "sinimagen",
-    code: "abc456",
-    stock: 15,
-};
-
-const product3 = {
-    title: "Queso",
-    description: "Dambo",
-    price: 400,
-    thumbnail: "sinimagen",
-    code: "abc789",
-    stock: 5,
-};
 
 //PRODUCTOS
-productos.addProduct(product1)
-productos.addProduct(product2)
-productos.addProduct(product3)
+//productos.addProduct("Queso", "Dambo", 400, "SinImagen", "abc789", 5)
+//productos.addProduct("Leche", "Conaprole", 500, "SinImagen", "abc456", 10)
 //-------------------------------------------------------------------------
 
 //VER TODOS LOS PRODUCTOS
-//productos.getProducts()
+productos.getProducts()
 //-----------------------
 
 //TRAER PRODUCTO POR SU ID
