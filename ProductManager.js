@@ -17,9 +17,30 @@ class ProductManager{
         return id;
     };
     
-    addProduct = async (product) => {
-    const {title, description, price, thumbnail, code, stock} = product
+    ValidateField(title, description, price, thumbnail, code, stock) {
+        if (!title || !description || !price || !thumbnail || !code || !stock) {
+        console.error("Por favor, completa los campos.");
+        return false;
+        
+        } else {
+          return true;
+        };
 
+    };
+
+    DuplicateCode(code){
+        if (this.products.find((product) => product.code === code) !== undefined) {
+        console.error("Este producto ya existe")
+        return false;
+      
+      } else {
+        return true;
+      };
+      };
+
+    addProduct = async (product) => {
+    const {title, description, price, thumbnail, code, stock} = product 
+    this.ValidateField(title, description, price, thumbnail, code, stock) && this.DuplicateCode(code)
         let newProduct = {
             id: this.idGenerator(),
             title,
@@ -78,6 +99,8 @@ class ProductManager{
         console.log("Producto actualizado")
 
     }
+
+    
 }
 
 const productos = new ProductManager("./productos.txt");
@@ -85,9 +108,6 @@ const productos = new ProductManager("./productos.txt");
 
 
 //PRODUCTOS
-
-
-
 const producto1 = {
     title: "Pan",
     description: "Bimbo",
@@ -105,14 +125,51 @@ const producto2 = {
     code: "abc456",
     stock: 15,
 }
+//productos.addProduct(producto1)
+//productos.addProduct(producto2)
 
-productos.addProduct(producto1)
-productos.addProduct(producto2)
 
-//-------------------------------------------------------------------------
+const producto3 = {
+    title: "Jamón",
+    description: "Doña Coca",
+    //price: 50,
+    thumbnail: "sinimagen",
+    code: "abc789",
+    stock: 5,
+}
+
+//VALIDACION, completar campos
+//productos.addProduct(producto3)
+//--------------------------------
+
+
+
+//CODIGO DUPLICADO
+const producto4 = {
+    title: "Mayonesa",
+    description: "uruguaya",
+    price: 20,
+    thumbnail: "sinimagen",
+    code: "123",
+    stock: 25
+}
+
+const producto5 = {
+    title: "Pancho",
+    description: "La Dolfina",
+    price: 30,
+    thumbnail: "sinimagen",
+    code: "123",
+    stock: 15
+}
+
+//productos.addProduct(producto4)
+//productos.addProduct(producto5)
+//---------------------------------
+
 
 //VER TODOS LOS PRODUCTOS
-productos.getProducts()
+//productos.getProducts()
 //-----------------------
 
 //TRAER PRODUCTO POR SU ID

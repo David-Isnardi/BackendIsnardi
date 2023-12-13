@@ -1,1 +1,1 @@
-[{"id":1,"title":"Pan","description":"Bimbo","price":100,"thumbnail":"sinimagen","code":"abc123","stock":10},{"id":2,"title":"Leche","description":"Conaprole","price":300,"thumbnail":"sinimagen","code":"abc456","stock":15}]
+[{"id":1,"title":"Mayonesa","description":"uruguaya","price":20,"thumbnail":"sinimagen","code":"123","stock":25},{"id":2,"title":"Pancho","description":"La Dolfina","price":30,"thumbnail":"sinimagen","code":"123","stock":15}]
