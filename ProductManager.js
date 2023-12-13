@@ -17,7 +17,8 @@ class ProductManager{
         return id;
     };
     
-    addProduct = async (title, description, price, thumbnail, code, stock) => {
+    addProduct = async (product) => {
+    const {title, description, price, thumbnail, code, stock} = product
 
         let newProduct = {
             id: this.idGenerator(),
@@ -26,7 +27,7 @@ class ProductManager{
             price,
             thumbnail,
             code,
-            stock
+            stock,
         };
 
         this.products.push(newProduct)
@@ -44,8 +45,10 @@ class ProductManager{
 
     getProducts = async () => {
         let respuesta2 = await this.readProducts()
-       return console.log(respuesta2)
+        console.log(respuesta2)
     }
+    
+
 
     getProductsById = async (id) => {
 
@@ -53,7 +56,7 @@ class ProductManager{
         if (!respuesta3.find(product => product.id === id)){
             console.log("Not found")
         } else {
-       return console.log((respuesta3.find(product => product.id === id)))
+       console.log((respuesta3.find(product => product.id === id)))
         }
     }
 
@@ -82,8 +85,30 @@ const productos = new ProductManager("./productos.txt");
 
 
 //PRODUCTOS
-//productos.addProduct("Queso", "Dambo", 400, "SinImagen", "abc789", 5)
-//productos.addProduct("Leche", "Conaprole", 500, "SinImagen", "abc456", 10)
+
+
+
+const producto1 = {
+    title: "Pan",
+    description: "Bimbo",
+    price: 100,
+    thumbnail: "sinimagen",
+    code: "abc123",
+    stock: 10,
+}
+
+const producto2 = {
+    title: "Leche",
+    description: "Conaprole",
+    price: 300,
+    thumbnail: "sinimagen",
+    code: "abc456",
+    stock: 15,
+}
+
+productos.addProduct(producto1)
+productos.addProduct(producto2)
+
 //-------------------------------------------------------------------------
 
 //VER TODOS LOS PRODUCTOS
