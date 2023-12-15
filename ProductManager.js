@@ -65,8 +65,9 @@ class ProductManager{
     }
 
     getProducts = async () => {
+
         let respuesta2 = await this.readProducts()
-        console.log(respuesta2)
+        return respuesta2
     }
     
 
@@ -77,7 +78,7 @@ class ProductManager{
         if (!respuesta3.find(product => product.id === id)){
             console.log("Not found")
         } else {
-       console.log((respuesta3.find(product => product.id === id)))
+       return respuesta3.find(product => product.id === id)
         }
     }
 
@@ -169,7 +170,7 @@ const producto5 = {
 
 
 //VER TODOS LOS PRODUCTOS
-//productos.getProducts()
+//console.log(await productos.getProducts())
 //-----------------------
 
 //TRAER PRODUCTO POR SU ID
